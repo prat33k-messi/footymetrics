@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
+import Scout from './components/Scout';
 
 function Navigation() {
   const location = useLocation();
@@ -12,8 +13,8 @@ function Navigation() {
   return (
     <nav className="navbar">
       <Link to="/" className="nav-brand">
-        <span>⚡ FootyMetrics</span>
-        <span className="brand-badge">Pro Analytics</span>
+        <span>FOOTYMETRICS</span>
+        <span className="brand-badge">// PRO</span>
       </Link>
       <div className="nav-links">
         <Link 
@@ -23,24 +24,33 @@ function Navigation() {
           Home
         </Link>
         <Link 
-          to="/reg" 
-          className={`nav-link ${location.pathname === '/reg' ? 'active-btn' : ''}`}
+          to="/scout" 
+          className={`nav-link ${location.pathname === '/scout' ? 'active-btn' : ''}`}
         >
-          Register
+          Scout Roster
         </Link>
-        <Link 
-          to="/log" 
-          className={`nav-link ${location.pathname === '/log' ? 'active-btn' : ''}`}
-        >
-          Login
-        </Link>
-        {uname && (
+        {uname ? (
           <Link 
             to="/dboard" 
             className={`nav-link ${location.pathname === '/dboard' ? 'active-btn' : ''}`}
           >
-            Dashboard
+            Dashboard ({uname})
           </Link>
+        ) : (
+          <>
+            <Link 
+              to="/reg" 
+              className={`nav-link ${location.pathname === '/reg' ? 'active-btn' : ''}`}
+            >
+              Register
+            </Link>
+            <Link 
+              to="/log" 
+              className={`nav-link ${location.pathname === '/log' ? 'active-btn' : ''}`}
+            >
+              Sign In
+            </Link>
+          </>
         )}
       </div>
     </nav>
@@ -56,6 +66,7 @@ function App() {
         <Route path="/reg" element={<Register />} />
         <Route path="/log" element={<Login />} />
         <Route path="/dboard" element={<Dashboard />} />
+        <Route path="/scout" element={<Scout />} />
       </Routes>
     </Router>
   );

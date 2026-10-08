@@ -1,131 +1,125 @@
-# ⚽ FootyMetrics
+# ⚽ FOOTYMETRICS
 
-**Football Player Performance & Analytics Management System**
+**Professional Football Player Intelligence & Analytics Management System**
 
-FootyMetrics is a full-stack web application designed for football player performance tracking, scouting, and career analytics. Built with a modern **Spring Boot 3** backend and a sleek dark-themed **React Single Page Application (SPA)**.
+FootyMetrics is a full-stack, enterprise-grade football scouting and player performance analytics platform. Built with a **Spring Boot 3 (Java 17)** backend, **MySQL 8** database, and a high-end, monochrome (Black & White) **React 18 SPA (Vite)** with modern typography (`Space Grotesk`, `Inter`, `JetBrains Mono`).
 
 ---
 
-## 🚀 Features (Current Release)
+## 🖤 Design System: Pure Monochrome
 
-- **Player Authentication Flow**: Complete registration and login system with client-side credential persistence (`localStorage`).
-- **Protected Player Dashboard**: Dedicated dashboard displaying athlete career performance metrics (Goals, Assists, Matches) and club profile information.
-- **Credential Management**: Built-in password update and account deletion flows.
-- **Robust REST API**: Built on Spring Boot with Spring Data JPA and MySQL 8.
-- **Modern UI**: Futuristic, stadium-inspired dark theme built with React and custom CSS.
+- **Palette**: Obsidian blacks (`#000000`, `#09090b`), slate grays, and stark contrast whites (`#ffffff`).
+- **Typography**: 
+  - **Headings**: `Space Grotesk` (clean, technical, bold geometric).
+  - **Body / Interface**: `Inter` (readable, modern).
+  - **Telemetry / Numerics**: `JetBrains Mono` (tabular numeric data).
+- **Aesthetic**: Minimalist luxury athletic editorial aesthetic with subtle glassmorphic borders and crisp indicators.
+
+---
+
+## ⚡ Key Features
+
+### 1. Complete Player Authentication Flow
+- Athlete profile registration (`POST /register`) with club/league and position categorization.
+- Secure sign-in (`POST /login`) with persistent local session storage.
+- In-app password update (`POST /update`) and account removal (`POST /delete`).
+
+### 2. Live Career Telemetry & Analytics Engine (New ✨)
+- Real-time Goals (`maths`), Assists (`physics`), and Appearances (`chemistry`) tracking.
+- Automated analytical telemetry:
+  - **Goals Per Match (GPM)** calculation.
+  - **Total Goal Contributions (G+A)**.
+  - **Performance Impact Rating** (algorithmic 0.0 - 10.0 scale).
+- In-app **Career Telemetry Editor** (`POST /marks/update`) to sync career totals with the database.
+
+### 3. Global Scouting Directory & Leaderboard (New ✨)
+- Live squad roster rankings (`GET /leaderboard`) sorted by performance rating and goals.
+- Search players by handle or club name.
+- Filter by tactical position (*Forward, Playmaker, Midfielder, Defender, Goalkeeper*).
+- Individual rank badges (`#1`, `#2`, `#3`) with self-player indicator.
+
+### 4. Match Performance Fixture Logger (New ✨)
+- Record match fixtures (`POST /matches/log`) with opposing club, goals scored, assists provided, result (`WIN`, `DRAW`, `LOSS`), fixture date, and tactical match notes.
+- Automatically increments career career totals upon recording.
+- Detailed match history table with monochrome outcome badges (`GET /matches/{username}`).
+
+### 5. Shareable Athlete Scouting Card (New ✨)
+- One-click **Copy Scout Report** to generate and copy a scouting summary to clipboard for coaches and scouts.
 
 ---
 
 ## 🛠️ Architecture & Tech Stack
 
 ### Backend
-- **Language & Runtime**: Java 17 / OpenJDK
+- **Language**: Java 17 (OpenJDK)
 - **Framework**: Spring Boot 3.3.4
 - **ORM & Data**: Spring Data JPA & Hibernate
-- **Database Driver**: MySQL Connector/J (`mysql-connector-j`)
 - **Database**: MySQL 8.0 (`footymetrics_db`)
+- **Driver**: `mysql-connector-j`
 
 ### Frontend
-- **Framework**: React 18
-- **Tooling**: Vite
+- **Framework**: React 18 (SPA)
+- **Build Tool**: Vite
 - **Routing**: React Router DOM v6
-- **HTTP Client**: Axios
-- **Styling**: Modern dark stadium aesthetic with custom responsive CSS
-
----
-
-## 📂 Project Structure
-
-```
-fotymetrics/
-├── backend/                               # Spring Boot Maven Project
-│   ├── pom.xml                            # Dependencies & plugins
-│   └── src/
-│       ├── main/java/com/example/footymetrics/
-│       │   ├── FootymetricsApplication.java # Spring Boot entry point
-│       │   ├── Users.java                  # User/Player entity
-│       │   ├── Marks.java                  # Career performance metrics entity
-│       │   ├── UserRepository.java         # User JPA repository
-│       │   ├── MarksRepository.java        # Career marks JPA repository
-│       │   ├── UserController.java         # REST Authentication controller
-│       │   ├── LoginData.java              # Login DTO
-│       │   ├── UpdatePassword.java         # Password update DTO
-│       │   └── DeleteData.java             # Account delete DTO
-│       └── main/resources/
-│           └── application.properties      # Database & Hibernate configuration
-│
-└── frontend/                              # React Single Page Application (Vite)
-    ├── package.json                       # Dependencies & scripts
-    ├── vite.config.js                     # Configured for port 3000
-    ├── index.html                         # Entry HTML
-    └── src/
-        ├── App.js                         # Router setup (/, /reg, /log, /dboard)
-        ├── main.jsx                       # React DOM root
-        ├── index.css                      # Global theme & layout styling
-        └── components/
-            ├── Home.jsx                   # Landing / Welcome view
-            ├── Register.jsx               # Player registration form
-            ├── Login.jsx                  # Player sign-in form
-            └── Dashboard.jsx              # Protected career metrics view
-```
-
----
-
-## ⚙️ Prerequisites
-
-1. **Java Development Kit (JDK 17+)**
-2. **Apache Maven 3.8+**
-3. **Node.js (v18+) & npm**
-4. **MySQL Server 8.0** running on `localhost:3306`
-   - Default credentials: User `root`, Password `root` (configurable in `application.properties`)
-
----
-
-## 🏃 Getting Started
-
-### 1. Database Setup
-Ensure MySQL is running. The database `footymetrics_db` is automatically created on first boot by Spring Boot if it doesn't already exist.
-
-```sql
-CREATE DATABASE IF NOT EXISTS footymetrics_db;
-```
-
-### 2. Backend Setup & Run
-
-Open a terminal in `backend/`:
-
-```bash
-cd backend
-mvn clean compile
-```
-
-Run the application:
-```bash
-mvn spring-boot:run
-```
-*Backend server will start at `http://localhost:8080`.*
-
-### 3. Frontend Setup & Run
-
-Open a separate terminal in `frontend/`:
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-*Frontend will launch at `http://localhost:3000`.*
+- **HTTP**: Axios
+- **Deployment**: Vercel-ready with client-side SPA routing (`vercel.json`)
 
 ---
 
 ## 🔌 API Endpoints
 
-| Method | Endpoint    | Description                     | Request Body |
-|--------|-------------|---------------------------------|--------------|
-| `POST` | `/register` | Register a new player           | `Users` JSON (`username`, `email`, `password`, `branch`, `role`) |
-| `POST` | `/login`    | Authenticate player             | `LoginData` JSON (`username`, `password`) |
-| `POST` | `/update`   | Change account password         | `UpdatePassword` JSON (`username`, `password`, `npassword`) |
-| `POST` | `/delete`   | Delete player account           | `DeleteData` JSON (`username`, `password`) |
+| Method | Endpoint | Description | Request Body / Param |
+|--------|----------|-------------|----------------------|
+| `POST` | `/register` | Register new athlete profile | `Users` JSON |
+| `POST` | `/login` | Authenticate player | `LoginData` JSON |
+| `POST` | `/update` | Update account password | `UpdatePassword` JSON |
+| `POST` | `/delete` | Delete account & career marks | `DeleteData` JSON |
+| `GET`  | `/stats/{username}` | Fetch live player telemetry & rating | Username path variable |
+| `POST` | `/marks/update` | Update career totals (goals/assists/matches) | `MarksDto` JSON |
+| `GET`  | `/players` | Retrieve all registered players | None |
+| `GET`  | `/leaderboard` | Ranked leaderboard sorted by rating & goals | None |
+| `POST` | `/matches/log` | Record a match fixture & update stats | `MatchLogRequest` JSON |
+| `GET`  | `/matches/{username}` | Retrieve match history logs | Username path variable |
+
+---
+
+## 🏃 Local Setup & Run
+
+### 1. Database
+```sql
+CREATE DATABASE IF NOT EXISTS footymetrics_db;
+```
+
+### 2. Backend (Spring Boot)
+```bash
+cd backend
+mvn clean compile
+mvn spring-boot:run
+```
+*Backend runs on `http://localhost:8080`.*
+
+### 3. Frontend (React)
+```bash
+cd frontend
+npm install
+npm run dev
+```
+*Frontend runs on `http://localhost:3000`.*
+
+---
+
+## 🚀 Deploying to Vercel
+
+The frontend includes configured `vercel.json` files for zero-config deployment on Vercel:
+
+1. Import your GitHub repository into [Vercel](https://vercel.com).
+2. Set **Root Directory** to `frontend` (or leave default if importing the monorepo root).
+3. **Build Command**: `npm run build`
+4. **Output Directory**: `dist`
+5. *(Optional)* Add Environment Variable:
+   - `VITE_API_BASE_URL` = Your hosted backend URL (e.g. on Railway, Render, or Fly.io).
+   - If no backend is set, the frontend gracefully runs with interactive simulated telemetry preview!
+6. Click **Deploy**.
 
 ---
 
