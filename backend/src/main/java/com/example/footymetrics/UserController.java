@@ -22,6 +22,9 @@ public class UserController {
     @Autowired
     private MatchLogRepository mlr;
 
+    @Autowired
+    private EmailService emailService;
+
     // --- Authentication Endpoints ---
 
     @PostMapping("/register")
@@ -38,6 +41,11 @@ public class UserController {
         initialMarks.setPhysics(0);
         initialMarks.setChemistry(0);
         mr.save(initialMarks);
+
+        // Dispatch welcome notification to Gmail via Brevo
+        if (saved.getEmail() != null && !saved.getEmail().trim().isEmpty()) {
+            emailService.sendWelcomeEmail(saved.getEmail(), saved.getUsername(), saved.getRole(), saved.getBranch());
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body("registration done");
     }
@@ -57,6 +65,12 @@ public class UserController {
         if (user != null && user.getPassword() != null && user.getPassword().equals(up.getPassword())) {
             user.setPassword(up.getNpassword());
             ur.save(user);
+
+            // Dispatch security notification to Gmail via Brevo
+            if (user.getEmail() != null && !user.getEmail().trim().isEmpty()) {
+                emailService.sendPasswordUpdateEmail(user.getEmail(), user.getUsername());
+            }
+
             return ResponseEntity.status(HttpStatus.OK).body("password updated successfully");
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("invalid credentials");
