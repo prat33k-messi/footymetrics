@@ -39,6 +39,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- Embedded H2 Database (Zero-configuration local storage) -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 		<!-- Spring Boot Starter Mail (Brevo / SMTP) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
